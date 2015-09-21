@@ -11,10 +11,25 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    signingConfigs {
+        release {
+            def configFile = file("signingconfig.properties")
+            def props = new Properties()
+            props.load(new FileInputStream(configFile))
+
+            storeFile file("sample.keystore")
+            storePassword props.storePassword
+            keyAlias props.keyAlias
+            keyPassword props.keyPassword
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }
