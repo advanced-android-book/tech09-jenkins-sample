@@ -1,5 +1,16 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.deploygate:gradle:0.6.2'
+    }
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'findbugs'
+apply plugin: 'deploygate'
 
 android {
     compileSdkVersion 23
@@ -56,3 +67,15 @@ task findbugs(type:FindBugs, dependsOn:assembleDebug) {
     }
     classpath = files()
 }
+
+deploygate {
+    userName = "shoma2da"
+    token = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+
+    apks {
+        debug {
+            sourceFile = file("build/outputs/apk/app-debug.apk")
+        }
+    }
+}
+
