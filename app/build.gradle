@@ -14,7 +14,7 @@ apply plugin: 'deploygate'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "io.github.shoma2da.android_jenkins_sample"

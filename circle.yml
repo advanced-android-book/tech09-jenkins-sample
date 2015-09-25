@@ -1,0 +1,19 @@
+dependencies:
+  pre:
+    - echo y | android update sdk --no-ui --all --filter "android-23,build-tools-23.0.3,extra-android-m2repository,extra-android-support"
+
+test:
+  override:
+    - if [ "$CIRCLE_BRANCH" = "release" ]; then
+        ./gradlew assembleRelease;
+      else
+        ./gradlew assembleDebug;
+      fi
+    - ./gradlew lint;     cp -r app/build/outputs $CIRCLE_ARTIFACTS
+    - ./gradlew findbugs; cp -r app/build/reports $CIRCLE_ARTIFACTS
+
+deployment:
+  test:
+    branch: /*/
+    commands:
+      - ./gradlew uploadDeployGate
